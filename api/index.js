@@ -9,7 +9,6 @@ import { ApolloServer } from 'apollo-server-express';
 import User from './User';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
-
 import initPassport from './initPassport';
 
 const PORT = 4000;
@@ -37,6 +36,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: 'http://localhost:3000',
+  failureRedirect: 'http://localhost:3000',
+}));
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: 'http://localhost:3000',
@@ -48,9 +52,9 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req, res }) => buildContext({ req, res, User }),
   playground: {
-    settings: {
-      'request.credentials': 'same-origin',
-    },
+    // settings: {
+    //   'request.credentials': 'same-origin',
+    // },
   },
 });
 

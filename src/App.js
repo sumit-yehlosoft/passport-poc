@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import SignupWithCredentialsButton from './SignupWithCredentialsButton';
 import LoginWithCredentialsButton from './LoginWithCredentialsButton';
 import LoginWithFacebookButton from './LoginWithFacebookButton';
+import LoginWithGoogleButton from './LoginWithGoogleButton';
 import LogoutButton from './LogoutButton';
 import { CURRENT_USER_QUERY } from './queries';
 
@@ -19,6 +20,7 @@ const App = () => (
             <SignupWithCredentialsButton />
             <LoginWithCredentialsButton />
             <LoginWithFacebookButton />
+            <LoginWithGoogleButton />
           </>
         );
       }
